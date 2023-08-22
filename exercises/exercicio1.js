@@ -47,9 +47,9 @@ for (var i = 0; i < 4; i++) {
   let cilinderGeometry = new THREE.CylinderGeometry(0.1, 0.1, 3, 5);
   let cilinder = new THREE.Mesh(cilinderGeometry, material);
   scene.add(cilinder);
-  cilinder.translateY(1.5)
-  cilinder.translateX(a)
-  cilinder.translateZ(b)
+  cilinder.translateY(1.5);
+  cilinder.translateX(a);
+  cilinder.translateZ(b);
 }
 // position the cube
 cube.scale.set(1.75, 0.075, 1.5);

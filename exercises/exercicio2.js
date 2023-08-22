@@ -29,23 +29,31 @@ scene.add(plane);
 var a,b;
 a=0;
 b=-7;
+let angle = THREE.MathUtils.degToRad(10);
 // create sphere
 for (var i = 0; i < 12; i++) {
   let sphereGeometry = new THREE.SphereGeometry(2, 15, 16);
   let sphere = new THREE.Mesh(sphereGeometry, material);
-  sphere.scale.set(0.25, 0.3, 0.3);
   scene.add(sphere);
-  sphere.translateY(0.5);
-  sphere.rotateY(50);
-  sphere.translateX(a);
-  sphere.translateZ(b);
+  sphere.scale.set(0.25, 0.3, 0.3);
   if (i < 6) {
-    a= a+2;
-    b=b+2.5;
+    sphere.rotateY(angle);
+    sphere.translateY(0.5);
+    sphere.translateX(a);
+    sphere.translateZ(b);
+    a = a + 1;
+    b = b + 1.5;
+    angle = angle - THREE.MathUtils.degToRad(13);
   }
   if (i >= 6) {
-    b= b +1.5;
-    a= a -1.5;
+    angle = angle + THREE.MathUtils.degToRad(-13);
+    sphere.rotateY(angle);
+    sphere.translateY(0.5);
+    sphere.translateX(a);
+    sphere.translateZ(b);
+    b = b + 1;
+    a = a - 0.8;
+    
   }
 }
 
