@@ -5,13 +5,14 @@ import {initRenderer,
         initDefaultSpotlight,
         createGroundPlaneXZ,
         SecondaryBox, 
-        onWindowResize} from "../libs/util/util.js";
+   onWindowResize
+} from "../libs/util/util.js";
 
 let scene, renderer, light, camera, keyboard;
 scene = new THREE.Scene();    // Create main scene
 renderer = initRenderer();    // View function in util/utils
 light = initDefaultSpotlight(scene, new THREE.Vector3(5.0, 5.0, 5.0)); // Use default light    
-window.addEventListener( 'resize', function(){onWindowResize(camera, renderer)}, false );
+window.addEventListener('resize', function () { onWindowResize(camera, renderer) }, false);
 keyboard = new KeyboardState();
 
 var groundPlane = createGroundPlaneXZ(10, 10, 40, 40); // width, height, resolutionW, resolutionH
@@ -32,46 +33,24 @@ camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight,
 camera.position.copy(camPos);
 camera.up.copy(camUp);
 camera.lookAt(camLook);
-
+let cameraHolder = new THREE.Object3D();
+cameraHolder.add(camera);
+scene.add(cameraHolder);
 render();
 
 function updateCamera() {
    // DICA: Atualize a câmera aqui!
    keyboard.update();
-   if (keyboard.pressed("left")) {
-
-      camPos= new THREE.Vector3(camPos.x - 0.1, camPos.y, camPos.z);
-      camera.position.copy(camPos);
-   }
-   if (keyboard.pressed("right")) {
-
-      camPos= new THREE.Vector3(camPos.x + 0.1, camPos.y, camPos.z);
-      camera.position.copy(camPos);
-
-
-   }
-   if (keyboard.pressed("up")) {
-
-      camPos= new THREE.Vector3(camPos.x, camPos.y + 0.1, camPos.z);
-      camera.position.copy(camPos);
-
-   }
-   if (keyboard.pressed("down")) {
-
-      camPos= new THREE.Vector3(camPos.x, camPos.y - 0.1, camPos.z);
-      camera.position.copy(camPos);
-
-   }
+   if (keyboard.pressed("left")) cameraHolder.translateX(-0.1);
+   if (keyboard.pressed("right")) cameraHolder.translateX(0.1);
+   if (keyboard.pressed("up")) cameraHolder.translateY(0.1);
+   if (keyboard.pressed("down")) cameraHolder.translateY(-0.1);
    if (keyboard.pressed("pageup")) {
-
-      camPos= new THREE.Vector3(camPos.x, camPos.y , camPos.z - 0.1);
-      camera.position.copy(camPos);
+      cameraHolder.translateZ(0.1);
    }
    if (keyboard.pressed("pagedown")) {
 
-      camPos= new THREE.Vector3(camPos.x, camPos.y , camPos.z + 0.1);
-      camera.position.copy(camPos);
-      
+      cameraHolder.translateZ(-0.1);
    }
    message.changeMessage("Pos: {" + camPos.x + ", " + camPos.y + ", " + camPos.z + "} " +
       "/ LookAt: {" + camLook.x + ", " + camLook.y + ", " + camLook.z + "}");
@@ -83,35 +62,36 @@ function keyboardUpdate() {
 
    // DICA: Insira aqui seu código para mover a câmera
 
+
+   let angle = THREE.MathUtils.degToRad(4);
    if (keyboard.pressed("A")) {
-      camLook = new THREE.Vector3(camLook.x - 0.1, camLook.y, camLook.z);
-      camera.lookAt(camLook);
+      //camLook = camLook - (0.1,0.0,0.0);
+      //camera.lookAt(camLook);
+      cameraHolder.rotateY(angle);
    }
 
    if (keyboard.pressed("D")) {
-      camLook = new THREE.Vector3(camLook.x + 0.1, camLook.y, camLook.z);
-      camera.lookAt(camLook);
+
+      cameraHolder.rotateY(-angle);
    }
 
    if (keyboard.pressed("W")) {
-      camLook = new THREE.Vector3(camLook.x, camLook.y, camLook.z + 0.1);
-      camera.lookAt(camLook);
+
+      cameraHolder.rotateX(angle);
    }
    if (keyboard.pressed("S")) {
-      camLook = new THREE.Vector3(camLook.x, camLook.y, camLook.z - 0.1);
-      camera.lookAt(camLook);
 
+      cameraHolder.rotateX(-angle);
    }
    if (keyboard.pressed("Q")) {
-      camLook = new THREE.Vector3(camLook.x, camLook.y + 0.1, camLook.z);
-      camera.lookAt(camLook);
 
+      cameraHolder.rotateZ(angle);
    }
    if (keyboard.pressed("E")) {
-      camLook = new THREE.Vector3(camLook.x, camLook.y - 0.1, camLook.z);
-      camera.lookAt(camLook);
+      cameraHolder.rotateZ(-angle);
    }
 
+   
    updateCamera();
 }
 
