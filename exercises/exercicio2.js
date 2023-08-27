@@ -27,10 +27,11 @@ scene.add( axesHelper );
 let plane = createGroundPlaneXZ(20, 20)
 scene.add(plane);
 var a,b;
-a=0;
-b=-7;
-let angle = THREE.MathUtils.degToRad(10);
+a = 0;
+b = -7;
 // create sphere
+let angle = THREE.MathUtils.degToRad(35);
+let angle1 = THREE.MathUtils.degToRad(30);
 for (var i = 0; i < 12; i++) {
   let sphereGeometry = new THREE.SphereGeometry(2, 15, 16);
   let sphere = new THREE.Mesh(sphereGeometry, material);
@@ -39,21 +40,16 @@ for (var i = 0; i < 12; i++) {
   if (i < 6) {
     sphere.rotateY(angle);
     sphere.translateY(0.5);
-    sphere.translateX(a);
-    sphere.translateZ(b);
-    a = a + 1;
-    b = b + 1.5;
-    angle = angle - THREE.MathUtils.degToRad(13);
+    sphere.translateX(6);
+    sphere.translateZ(4);
+    angle = angle - angle1;
   }
   if (i >= 6) {
-    angle = angle + THREE.MathUtils.degToRad(-13);
+    angle = angle + angle1;
     sphere.rotateY(angle);
     sphere.translateY(0.5);
-    sphere.translateX(a);
-    sphere.translateZ(b);
-    b = b + 1;
-    a = a - 0.8;
-    
+    sphere.translateX(-6);
+    sphere.translateZ(-4);
   }
 }
 
