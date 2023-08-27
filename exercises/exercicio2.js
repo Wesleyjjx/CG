@@ -26,9 +26,6 @@ scene.add( axesHelper );
 // create the ground plane
 let plane = createGroundPlaneXZ(20, 20)
 scene.add(plane);
-var a,b;
-a = 0;
-b = -7;
 // create sphere
 let angle = THREE.MathUtils.degToRad(35);
 let angle1 = THREE.MathUtils.degToRad(30);
@@ -36,7 +33,7 @@ for (var i = 0; i < 12; i++) {
   let sphereGeometry = new THREE.SphereGeometry(2, 15, 16);
   let sphere = new THREE.Mesh(sphereGeometry, material);
   scene.add(sphere);
-  sphere.scale.set(0.25, 0.3, 0.3);
+  sphere.scale.set(0.25, 0.2, 0.2);
   if (i < 6) {
     sphere.rotateY(angle);
     sphere.translateY(0.5);
