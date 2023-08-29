@@ -75,7 +75,7 @@ function updateCamera() {
    }
    message.changeMessage("Pos: {" + camPos.x + ", " + camPos.y + ", " + camPos.z + "} " +
       "/ LookAt: {" + camLook.x + ", " + camLook.y + ", " + camLook.z + "}");
-}
+   }
 
 function keyboardUpdate() {
 
