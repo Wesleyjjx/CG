@@ -56,7 +56,9 @@ const lerpConfig1 = {
   alpha: 0.01,
   move: false
 }*/
-var animationOn = true;
+//var animationOn = true;
+var animationOn1 = true;
+var animationOn2 = true;
 
 buildInterface();
 render();
@@ -67,56 +69,63 @@ function translateSphere()
   // https://threejs.org/docs/#manual/en/introduction/Matrix-transformations
   obj.matrixAutoUpdate = false;
   obj1.matrixAutoUpdate = false;
-
+  var mat4 = new THREE.Matrix4();
   // Set angle's animation speed
-  if(animationOn)
-  {
-    posicaoX+=speed;
-    posicaoX2+= speed1;
-    
-    var mat4 = new THREE.Matrix4();
+  if (animationOn1) {
+    posicaoX += speed;
+    //posicaoX2 += speed1;
+
+    //var mat4 = new THREE.Matrix4();
     obj.matrix.identity();  // reset matrix
-    obj1.matrix.identity();  // reset
+    //obj1.matrix.identity();  // reset
 
     // Will execute T1 and then R1
     //cylinder.matrix.multiply(mat4.makeRotationZ(angle)); // R1
-    obj.matrix.multiply(mat4.makeTranslation(posicaoX, 0.2, posicaoZ)); // T1
+      obj.matrix.multiply(mat4.makeTranslation(posicaoX, 0.2, posicaoZ)); // T1
 
     // Will execute R2, T1 and R1 in this order
     //cylinder2.matrix.multiply(mat4.makeRotationY(angle2)); // R1
-    obj1.matrix.multiply(mat4.makeTranslation(posicaoX2, 0.2, -posicaoZ)); // T1
+  }
+    if (animationOn2) {
+      posicaoX2 += speed1;
+      obj1.matrix.identity();
+      obj1.matrix.multiply(mat4.makeTranslation(posicaoX2, 0.2, -posicaoZ));
+    } // T1
     //cylinder2.matrix.multiply(mat4.makeRotationX(THREE.MathUtils.degToRad(90))); // R2
-    if (posicaoX >= 4 && posicaoX2 >= 4) {
+    if (posicaoX >= 4) {
       obj.matrix.makeTranslation(4, 0.2, 3);
+    }
+    if (posicaoX2 >= 4) {
       obj1.matrix.makeTranslation(4, 0.2, -3);
     }
-  }
+  
 }
-function buildInterface()
-{    
+function buildInterface() {
   var controls = new function () {
     this.onMoveObject = function () {
-      animationOn = !animationOn;
+      animationOn1 = !animationOn1;
     };
     this.onMoveObject1 = function () {
-      animationOn = !animationOn;
+      animationOn2 = !animationOn2;
    };
    this.resetObject = function () {
     obj.updateMatrix();
     obj1.updateMatrix();
-    animationOn = !animationOn;
- };
- };
+    posicaoX = -3;
+    posicaoX2= -3;
+    animationOn1 = false;
+    animationOn2 = false;
+    };
+  };
   let gui = new GUI();
-    gui.add(controls, "onMoveObject",true).name("Esfera1");
-    gui.add(controls, "onMoveObject1",true).name("Esfera2");
+  gui.add(controls, "onMoveObject1", true).name("Esfera1");
+  gui.add(controls, "onMoveObject", true).name("Esfera2");
   //folder.add(lerpConfig.destination, 'z', -5, 5).onChange();
   //folder.add(lerpConfig, 'alpha', 0.01, 1).onChange();
-  gui.add(controls, "resetObject",true).name("Reset");
+  gui.add(controls, "resetObject", true).name("Reset");
 }
 
-function render()
-{
+function render() {
   trackballControls.update();
   translateSphere();
   //if(lerpConfig.move) obj.position.lerp(lerpConfig.destination, lerpConfig.alpha);
