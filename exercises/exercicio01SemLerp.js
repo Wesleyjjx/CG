@@ -17,7 +17,7 @@ var posicaoX=-3;
 var posicaoX2=-3;
 var posicaoZ= 3;
 var speed = 0.1;
-var speed1 = 0.15;
+var speed1 = 0.18;
 
 // Show axes 
 let axesHelper = new THREE.AxesHelper( 5 );
@@ -45,7 +45,7 @@ scene.add(groundPlane);
   obj1.castShadow = true;
   obj1.position.set(-3, 0.2, -3);
   scene.add(obj1);
-  
+
 var animationOn1 = true;
 var animationOn2 = true;
 
