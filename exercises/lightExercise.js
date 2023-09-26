@@ -26,12 +26,49 @@ let axesHelper = new THREE.AxesHelper( 3 );
   axesHelper.visible = false;
 scene.add( axesHelper );
 
+
+var cylinderGeometry = new THREE.CylinderGeometry(0.15,0.15,0.6);
+var cylinderMaterial = new THREE.MeshPhongMaterial({color:'yellow'});
+var cylinder = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
+scene.add(cylinder);
+
+var cylinderGeometry1 = new THREE.CylinderGeometry(0.15,0.15,0.6);
+var cylinderMaterial1 = new THREE.MeshPhongMaterial({color:'purple'});
+var cylinder1 = new THREE.Mesh(cylinderGeometry1,cylinderMaterial1);
+scene.add(cylinder1);
+
+var cubeGeometry = new THREE.BoxGeometry(0.4,0.6,0.4);
+var cubeMaterial = new THREE.MeshPhongMaterial({color:'red'});
+var cube = new THREE.Mesh(cubeGeometry,cubeMaterial);
+scene.add(cube);
+
+var cubeGeometry1 = new THREE.BoxGeometry(0.4,0.6,0.4);
+var cubeMaterial1 = new THREE.MeshPhongMaterial({color:'green'});
+var cube1 = new THREE.Mesh(cubeGeometry1,cubeMaterial1);
+scene.add(cube1);
+
+cube.position.set(2,0.3,0);
+cube1.position.set(2,0.3,1.5);
+cylinder.position.set(0.8,0.3,-1.5);
+cylinder1.position.set(0.8,0.3,2.0);
+
+let ambientColor = "rgb(80,80,80)";
+let ambientLight = new THREE.AmbientLight(ambientColor);
+scene.add(ambientLight);
 let dirPosition = new THREE.Vector3(2, 2, 4)
 const dirLight = new THREE.DirectionalLight('white', 0.2);
 dirLight.position.copy(dirPosition);
  //mainLight.castShadow = true;
 scene.add(dirLight);  
 
+let position = new THREE.Vector3(2,2,4);
+let lightColor = "rgb(255,255,255)";
+const spotLight = new THREE.SpotLight(lightColor);
+spotLight.position.copy(position);
+spotLight.angle = THREE.MathUtils.degToRad(40);
+//spotLight.castShadow = true;
+scene.add(spotLight);
+spotLight.target.position.set(0.0,0.2,1.3);
 // Load default scene
 loadLightPostScene(scene)
 
