@@ -61,20 +61,23 @@ dirLight.position.copy(dirPosition);
  //mainLight.castShadow = true;
 scene.add(dirLight);  
 
-let position = new THREE.Vector3(2,2,4);
+let position = new THREE.Vector3(1.0,0.5,0.2);
 let lightColor = "rgb(255,255,255)";
 const spotLight = new THREE.SpotLight(lightColor);
 spotLight.position.copy(position);
 spotLight.angle = THREE.MathUtils.degToRad(40);
 //spotLight.castShadow = true;
 scene.add(spotLight);
-spotLight.target.position.set(0.0,0.2,1.3);
+spotLight.target.position.set(5,-3,0.2);
+spotLight.target.updateMatrixWorld();
+
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.VSMShadowMap;
 // Load default scene
 loadLightPostScene(scene)
 
 // REMOVA ESTA LINHA APÓS CONFIGURAR AS LUZES DESTE EXERCÍCIO
 initDefaultBasicLight(scene);
-
 //---------------------------------------------------------
 // Load external objects
 buildInterface();
